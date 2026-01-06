@@ -11,9 +11,12 @@ type HTTPClient interface {
 // Client contains all necessary client data
 type Client struct {
 	httpClient HTTPClient
-	baseURL    string  // typically https://api.twitch.tv/helix/
-	clientID   *string // clientID of the app
-	token      *string // token associated with the clientID
+	// typically https://api.twitch.tv/helix/
+	baseURL string
+	// clientID of the app
+	clientID *string
+	// token associated with the clientID
+	token *string
 }
 
 // NewClient initializes a new client
