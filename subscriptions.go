@@ -87,6 +87,8 @@ type GetSubscriptionsRequest struct {
 
 	// First represents how many users you want on each "page"
 	//
+	// Default 20
+	// Max 100
 	// Optional
 	First *string `url:"first,omitempty" json:"first,omitempty"`
 
