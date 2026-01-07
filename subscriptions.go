@@ -3,6 +3,8 @@ package twitchkithelix
 import (
 	"context"
 	"fmt"
+
+	"github.com/google/go-querystring/query"
 )
 
 // CheckSubscriptionRequest represents the data required to request if
@@ -181,10 +183,14 @@ type SubscriptionDataV2 struct {
 // The returned slice can be empty if there are no subscribers
 func (c *Client) GetSubscriptions(ctx context.Context, req GetSubscriptionsRequest) (*GetSubscriptionsResponse, error) {
 	var resp GetSubscriptionsResponse
+	values, err := query.Values(req)
+	if err != nil {
+		return nil, err
+	}
 	// Example Request URL:
 	// https://api.twitch.tv/helix/subscriptions?broadcaster_id=141981764
-	query := fmt.Sprintf("subscriptions?broadcaster_id=%s&first=%s", req.BroadcasterID, *req.First)
-	err := c.doRequest(ctx, "GET", query, nil, &resp)
+	query := fmt.Sprintf("subscriptions?%s", values.Encode())
+	err = c.doRequest(ctx, "GET", query, nil, &resp)
 	if err != nil {
 		return nil, err
 	}
