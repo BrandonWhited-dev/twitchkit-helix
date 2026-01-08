@@ -16,6 +16,7 @@ type RequestSearchChannels struct {
 	// LiveOnly determines whether only live channels are returned.
 	//
 	// Default: false
+	// Optional
 	LiveOnly *bool `url:"live_only,omitempty"`
 
 	// First specifies the maximum number of results to return.
