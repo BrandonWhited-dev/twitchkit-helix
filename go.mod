@@ -1,4 +1,4 @@
-module brandonwhited-dev.com/twitchkit-helix
+module github.com/brandonwhited-dev.com/twitchkit-helix
 
 go 1.25.5
 
