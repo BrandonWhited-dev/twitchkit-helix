@@ -14,6 +14,7 @@ For detailed field info, see the [pkg.go.dev documentation](https://pkg.go.dev/g
 go get github.com/brandonwhited-dev/twitchkit-helix
 ```
 # Example
+See [`twitchkit-examples`](https://github.com/brandonwhited-dev/twitchkit-examples) for more examples of twitckhit.
 ```go
 package main
 import (
@@ -26,23 +27,23 @@ func main () {
     oauth := "YOUR_TWITCH_OAUTH"       // no OAuth Prefix
     clientID := "YOUR_CLIENT_ID"       // Client ID linked with the oauth
 
-    helixClient := twitchkithelix.NewClient(clientID, oauth, nil)
+	// ===Create Helix API Client===
+	helixClient := twitchkithelix.NewClient(&clientID, &oauth, nil)
 
-    // Then you can start making requests to the Helix API
-    sourceOnly := true
-    req := twitchkithelix.SendMessageRequest{
-        BroadcasterID: "BroadcasterID"
-        SenderID: "SenderID"
-        Message : "Hello, Twitch!"
-        ForSourceOnly: &sourceOnly
-    }
+	// Send a hello message to twitch chat
+	sourceOnly := true
+	req := twitchkithelix.SendMessageRequest{
+		BroadcasterID: "BroadcasterID",
+		SenderID:      "SenderID",
+		Message:       "Hello, Twitch!",
+		ForSourceOnly: &sourceOnly,
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
 
-    ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-    defer cancel()
-
-    _, err := mh.AppClient.SendMessage(ctx, req)
-    if err := nil {
-        log.Println("Send Message Erorr: ", err)
-    }
+	_, err = helixClient.SendMessage(ctx, req)
+	if err != nil {
+		log.Println("Send Message Erorr: ", err)
+	}
 }
 ```
