@@ -21,6 +21,7 @@ type NewToken struct {
 
 const twitchRefreshLink = "https://id.twitch.tv/oauth2/token"
 
+// Refresh will refresh the client token and set the new token for this client.
 func (c *Client) Refresh(clientSecret, refreshToken string) (*NewToken, error) {
 	data := url.Values{}
 	data.Add("client_id", *c.clientID)
@@ -69,6 +70,7 @@ type NewAppToken struct {
 	TokenType   string `json:"token_type"`
 }
 
+// RefreshApp will refresh the app token and set the new token value for this client
 func (c *Client) RefreshApp(clientSecret string) (*NewAppToken, error) {
 	data := url.Values{}
 	data.Add("client_id", *c.clientID)
