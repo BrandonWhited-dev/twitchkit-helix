@@ -43,6 +43,9 @@ func (c *Client) doRequest(ctx context.Context, method string, endpoint string, 
 	}
 	defer resp.Body.Close()
 
+	if resp.StatusCode == http.StatusUnauthorized {
+		return AuthErr
+	}
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
 		bodyBytes, _ := io.ReadAll(resp.Body)
 		return &TwitchAPIError{

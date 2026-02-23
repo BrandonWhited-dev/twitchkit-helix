@@ -1,6 +1,9 @@
 package twitchkithelix
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 // TwitchAPIError represents an error response returned by the Twitch Helix API.
 type TwitchAPIError struct {
@@ -14,3 +17,7 @@ type TwitchAPIError struct {
 func (e *TwitchAPIError) Error() string {
 	return fmt.Sprintf("Twitch API Error(%d): %s", e.StatusCode, e.Body)
 }
+
+var (
+	AuthErr = errors.New("Auth Error")
+)
